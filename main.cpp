@@ -1,34 +1,28 @@
 
-#include <string>
 #include <iostream>
 #include <fstream>
-
+#include<string.h>
 using namespace std;
-char Line[80],fileName[25];
-string search;
-int offest;
-string line;
-ifstream fin;
-int main(void){
-    cout<<" enter the name of file";
+
+int main()
+{
+    char Line[80],fileName[25];
+    int counter;
+    ifstream fin;
+    cout<<" enter the name of file ";
     cin>>fileName;
     fin.open(fileName,ios::in);
     if(!fin){
         cout<<"file doesn`t exist  \n";
+
         exit(0);}
-
-    cout<<"enter the word that you want me search about ?? "<<endl;
-    cin>>search;
-    if(fin.is_open()){
-        while(!fin.eof()){
-            getline(fin,line);
-            if((offest=line.find(search,0)) != string::npos){
-                cout<<" the word ( "<<search<<" ) is exist "<<endl;
-            }
-            else
-                cout<<" the word ( "<<search<<" ) is not exist "<<endl;}
-
-
+        cout<<"\n content of file is : \n";
+        while(fin.eof()==0){
+            fin.getline(Line,sizeof(Line));
+            ++counter;
+            cout<<Line;
+        }
         fin.close();
-        return 0 ;
-    }}
+        cout<<"\n number of lines ="<<counter<<endl;
+        return 0;
+}
