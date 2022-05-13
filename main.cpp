@@ -17,7 +17,7 @@ private:
 
 public:
     void get_email(string str,bool &flag) {
-        regex e("[^^!#$-%+&=*:;,<>?()@. ]+@[^^!#$-%+&=*:;,?<>()@. ]*+.com");
+        regex e("[^^!#$-%+&=*:;,<>?()@. ]+@[^^!#$-%+&=*:;,?<>()@. ]*+[.]+com");
         if (regex_match(str, e)) {
             email = str;
             flag=1;
@@ -40,6 +40,7 @@ public:
             while (true) {
                 c = _getch();
                 if(c=='\b'){
+                    cout<<"\b \b";
                     pass.pop_back();
                     continue;
                 }
