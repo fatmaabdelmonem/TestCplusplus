@@ -1,0 +1,34 @@
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+int main()
+{
+    string str2;
+     fstream fin1, fin2;
+
+
+     char ch, file_name1[20], file_name2[20];
+     cout<<"\n Enter First File Name with Extension '.txt'    :   ";
+     gets(file_name1);
+     cout<<"\n Enter Second File Name with Extension '.txt'   :   ";
+     gets(file_name2);
+
+     fin1.open(file_name1);
+     fin2.open(file_name2);
+     if(!fin1 || !fin2)
+     {
+          cout<<"\n Invalid File Name. \n There is no such File or Directory ...";
+          exit(EXIT_FAILURE);
+     }
+ fin1.seekg(0, std::ios::end);
+   while(getline(fin2, str2)){
+
+         fin1<<str2;
+
+      }
+     cout<<" merge is complete";
+     fin1.close();
+     fin2.close();
+     return 0;
+}
