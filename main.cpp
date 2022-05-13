@@ -40,8 +40,10 @@ public:
             while (true) {
                 c = _getch();
                 if(c=='\b'){
+                    if(pass.length()>=1){
                     cout<<"\b \b";
                     pass.pop_back();
+                    }
                     continue;
                 }
                 if (c == 13) {
@@ -50,6 +52,7 @@ public:
                 pass += c;
                 cout << '*';
             }
+            cout<<endl;
             password = pass;
             for (int i=0;i<password.length();i++) {
                 if (isupper(password[i])) {
@@ -82,9 +85,24 @@ public:
             }
 
             if (password.length()>=12&&flag1==1&&flag3==1&&flag2==1){
+                    char c1;
                 do {
                     cout << "confirm password: ";
-                    cin >> confirm_pass;
+                    while (true) {
+                c1 = _getch();
+                if(c=='\b'){
+                    if(pass.length()>=1){
+                    cout<<"\b \b";
+                    confirm_pass.pop_back();
+                    }
+                    continue;
+                }
+                if (c1 == 13) {
+                    break;
+                }
+                confirm_pass += c1;
+                cout << '*';
+            }
                     if(confirm_pass==password){
                         cout <<"succeeded"<<endl;
                         break;
@@ -104,18 +122,22 @@ public:
     string print_pass(){
         return password;
     }
-    string get_num(){
-        string num_;
-        do {
+    void getn(){
+    string u_num;
+        while(true){
             cout << "number: ";
-            cin >> num_;
+            cin >> u_num;
             regex e("01+[0125]{1}+[1234567890]{8}");
-            if (regex_match(num_, e)) {
-                num=num_;
+            if (regex_match(u_num, e)) {
+                num=u_num;
                 break;
             }
-            else cout <<"wrong number"<<endl<<num_<<endl;
-        } while (true);
+            else cout <<"wrong number"<<endl;
+        }
+    }
+
+    string print_num(){
+    return num;
     }
 
 };
@@ -142,7 +164,7 @@ int main() {
         file.close();
         if (flag==1) {
             registers.get_pass();
-            registers.get_num();
+            registers.getn();
             file.open(filename,ios::app);
             file<<email<<endl<<registers.print_pass()<<endl;
             file.close();
