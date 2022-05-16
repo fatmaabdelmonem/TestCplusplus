@@ -1,0 +1,122 @@
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <cstring>
+using namespace std;
+fstream file;
+char name_of_file[100];
+void get_file();
+void add_text ();
+void display();
+void encryption(string &str);
+void decryption(string &str);
+void encrpt_file();
+void decrpt_file();
+
+int main() {
+    int n;
+    cout<<" 1_ to add text to the file"<<endl;
+    cout<<" 2_ to display file content"<<endl;
+    cout<<" 3_ to clear file content"<<endl;
+    cout<<" 4_ to encrypt file content"<<endl;
+    cout<<" 5_ to decrypt file content"<<endl;
+    cin>>n;
+    get_file();
+    if(n==1) {
+        add_text();
+    }
+    else if(n==2){
+        display();
+    }
+    else if(n==3){
+        file.open(name_of_file,std::ofstream::out | std::ofstream::trunc);
+        file.close();
+    }
+    else if (n==4){
+        encrpt_file();
+    }
+    else if (n==5){
+        decrpt_file();
+    }
+
+}
+void get_file(){
+
+
+    do{
+        cout<<"enter the name of file :  ";
+        cin>>name_of_file;
+        cin.sync();
+        cin.clear();
+        file.open(name_of_file);
+    }
+    while(file.fail());
+    file.close();
+}
+void add_text (){
+    file.open(name_of_file,ios::app);
+    string text;
+    cout << "enter the text you want to add" << endl;
+        getline(cin,text,'\0');
+        file<<text<<endl;
+
+    file.close();
+
+
+
+}
+void display(){
+    string token;
+    file.open(name_of_file,ios::in);
+    while(!file.eof()){
+        getline(file,token);
+        cout<<token<<endl;
+    }
+    file.close();
+}
+void encryption(string &str){
+    for(int i=0;i<str.length();i++){
+        str[i]+=1;
+
+    }
+
+
+}
+void decryption(string &str){
+    for(int i=0;i<str.length();i++){
+        str[i]-=1;
+
+    }
+
+
+}
+void encrpt_file(){
+    file.open(name_of_file,ios ::in);
+    ofstream temp ("temp.txt");
+    string token;
+    while(!file.eof()){
+        getline(file,token);
+        encryption(token);
+        temp<<token<<endl;
+    }
+    file.close();
+    temp.close();
+    remove(name_of_file);
+    rename("temp.txt",name_of_file);
+
+}
+void decrpt_file(){
+    file.open(name_of_file,ios ::in);
+    ofstream outfile ("temp.txt");
+    string token;
+    while(!file.eof()){
+        getline(file,token);
+        decryption(token);
+        outfile<<token<<endl;
+    }
+    file.close();
+    outfile.close();
+    remove(name_of_file);
+    rename("temp.txt",name_of_file);
+
+}
